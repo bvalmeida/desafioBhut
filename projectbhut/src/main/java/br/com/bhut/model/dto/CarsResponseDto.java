@@ -10,5 +10,6 @@ public class CarsResponseDto {
     private String brand;
     private String price;
     private int age;
+    private int __v;
 
 }
