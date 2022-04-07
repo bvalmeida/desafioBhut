@@ -2,7 +2,7 @@
 
 Projeto realizado para Bhut, para a vaga de desenvolvedor back-end Java
 
-#Ambiente de projeto
+# Ambiente de projeto
 
 Projeto realizado na IDE - Intellij
 
