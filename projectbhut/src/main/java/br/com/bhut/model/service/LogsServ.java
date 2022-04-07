@@ -1,5 +1,6 @@
 package br.com.bhut.model.service;
 
+import br.com.bhut.model.dto.CarsRequestDto;
 import br.com.bhut.model.dto.CarsResponseDto;
 import br.com.bhut.model.dto.LogsDto;
 import reactor.core.publisher.Mono;
@@ -9,7 +10,7 @@ import java.util.List;
 public interface LogsServ {
 
     List<CarsResponseDto> findCars();
-    void saveCar(CarsResponseDto carsResponseDto);
+    Mono<CarsRequestDto> saveCar(CarsRequestDto carsRequestDto);
     List<LogsDto> findLogs();
 
 }

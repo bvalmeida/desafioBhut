@@ -1,5 +1,6 @@
 package br.com.bhut.controller;
 
+import br.com.bhut.model.dto.CarsRequestDto;
 import br.com.bhut.model.dto.CarsResponseDto;
 import br.com.bhut.model.dto.LogsDto;
 import br.com.bhut.model.service.LogsService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -31,8 +33,8 @@ public class LogsController {
 
     @PostMapping(value = "createCar")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public void saveCar(@RequestBody CarsResponseDto carsResponseDto){
-        this.logsService.saveCar(carsResponseDto);
+    public Mono<CarsRequestDto> saveCar(@RequestBody CarsRequestDto carsRequestDto){
+        return this.logsService.saveCar(carsRequestDto);
     }
 
 

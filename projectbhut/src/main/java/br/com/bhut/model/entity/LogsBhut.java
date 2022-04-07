@@ -23,7 +23,4 @@ public class LogsBhut {
     @JoinColumn(name = "data_hora")
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataHora;
-
-    @JoinColumn(name = "car_id")
-    private String carId;
 }

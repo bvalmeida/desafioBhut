@@ -1,5 +1,6 @@
 package br.com.bhut.model.dto;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 import java.time.LocalDateTime;
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 public class LogsDto {
 
     private Long id;
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataHora;
-    private String carId;
 }

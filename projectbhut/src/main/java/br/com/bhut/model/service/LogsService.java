@@ -1,5 +1,6 @@
 package br.com.bhut.model.service;
 
+import br.com.bhut.model.dto.CarsRequestDto;
 import br.com.bhut.model.dto.CarsResponseDto;
 import br.com.bhut.model.dto.LogsDto;
 import br.com.bhut.model.entity.LogsBhut;
@@ -8,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,30 +37,23 @@ public class LogsService implements LogsServ{
     }
 
     @Override
-    public void saveCar(CarsResponseDto carsResponseDto) {
+    public Mono<CarsRequestDto> saveCar(CarsRequestDto carsRequestDto) {
 
         LocalDateTime dateTime = LocalDateTime.now();
 
         WebClient webClient = WebClient.create();
 
-        try{
-            webClient
-                    .post()
-                    .uri(URL)
-                    .body(BodyInserters.fromValue(carsResponseDto))
-                    .retrieve()
-                    .bodyToMono(CarsResponseDto.class)
-                    .block();
-
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-
         LogsBhut logsBhut = new LogsBhut();
         logsBhut.setDataHora(dateTime);
-        logsBhut.setCarId(carsResponseDto.get_id());
 
         this.logsRepository.save(logsBhut);
+
+        return webClient.post()
+                .uri(URL)
+                .body(Mono.just(carsRequestDto), CarsRequestDto.class)
+                .retrieve()
+                .bodyToMono(CarsRequestDto.class)
+                .timeout(Duration.ofMillis(10_000));
     }
 
     @Override
@@ -71,7 +65,6 @@ public class LogsService implements LogsServ{
         for(LogsBhut logsBhut : logsBhutList){
             LogsDto logsDto = new LogsDto();
             logsDto.setId(logsBhut.getId());
-            logsDto.setCarId(logsBhut.getCarId());
             logsDto.setDataHora(logsBhut.getDataHora());
             logsDtosRetorno.add(logsDto);
         }
