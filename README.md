@@ -6,6 +6,6 @@ Projeto realizado para Bhut, vaga de desenvolvedor back-end Java
 
 Projeto realizado na IDE - Intellij
 
-Java - v11 ..
-Apache Maven - v3.6.3 ..
-MySql - v8.0.28  ..
+<p>Java - v11</p>
+<p>Apache Maven - v3.6.3</p>
+<p>MySql - v8.0.28</p>
