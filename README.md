@@ -1,6 +1,6 @@
 # desafioBhut
 
-Projeto realizado para Bhut, para a vaga de desenvolvedor back-end Java
+Projeto realizado para Bhut, vaga de desenvolvedor back-end Java
 
 # Ambiente de projeto
 
