@@ -1,6 +1,5 @@
 package br.com.bhut.controller;
 
-import br.com.bhut.model.dto.CarsRequestDto;
 import br.com.bhut.model.dto.CarsResponseDto;
 import br.com.bhut.model.dto.LogsDto;
 import br.com.bhut.model.service.LogsService;
@@ -33,8 +32,8 @@ public class LogsController {
 
     @PostMapping(value = "createCar")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Mono<CarsRequestDto> saveCar(@RequestBody CarsRequestDto carsRequestDto){
-        return this.logsService.saveCar(carsRequestDto);
+    public Mono<CarsResponseDto> saveCar(@RequestBody CarsResponseDto carsResponseDto){
+        return this.logsService.saveCar(carsResponseDto);
     }
 
 

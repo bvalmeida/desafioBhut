@@ -1,6 +1,5 @@
 package br.com.bhut.model.service;
 
-import br.com.bhut.model.dto.CarsRequestDto;
 import br.com.bhut.model.dto.CarsResponseDto;
 import br.com.bhut.model.dto.LogsDto;
 import br.com.bhut.model.entity.LogsBhut;
@@ -11,12 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 
 @Service
 public class LogsService implements LogsServ{
@@ -37,23 +36,24 @@ public class LogsService implements LogsServ{
     }
 
     @Override
-    public Mono<CarsRequestDto> saveCar(CarsRequestDto carsRequestDto) {
+    public Mono<CarsResponseDto> saveCar(CarsResponseDto carsResponseDto) {
 
         LocalDateTime dateTime = LocalDateTime.now();
 
         WebClient webClient = WebClient.create();
 
+        Mono<CarsResponseDto> webClientRetorn = webClient.post()
+                .uri(URL)
+                .body(Mono.just(carsResponseDto), CarsResponseDto.class)
+                .retrieve()
+                .bodyToMono(CarsResponseDto.class)
+                .timeout(Duration.ofMillis(10_000));
+
         LogsBhut logsBhut = new LogsBhut();
         logsBhut.setDataHora(dateTime);
-
         this.logsRepository.save(logsBhut);
 
-        return webClient.post()
-                .uri(URL)
-                .body(Mono.just(carsRequestDto), CarsRequestDto.class)
-                .retrieve()
-                .bodyToMono(CarsRequestDto.class)
-                .timeout(Duration.ofMillis(10_000));
+        return webClientRetorn;
     }
 
     @Override
