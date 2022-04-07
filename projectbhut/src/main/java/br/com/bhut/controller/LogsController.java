@@ -30,6 +30,7 @@ public class LogsController {
     }
 
     @PostMapping(value = "createCar")
+    @ResponseStatus(value = HttpStatus.CREATED)
     public void saveCar(@RequestBody CarsResponseDto carsResponseDto){
         this.logsService.saveCar(carsResponseDto);
     }

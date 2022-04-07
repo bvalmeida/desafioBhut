@@ -42,12 +42,18 @@ public class LogsService implements LogsServ{
 
         WebClient webClient = WebClient.create();
 
-        webClient
-                .post()
-                .uri(URL)
-                .body(BodyInserters.fromValue(carsResponseDto))
-                .retrieve()
-                .bodyToMono(CarsResponseDto.class);
+        try{
+            webClient
+                    .post()
+                    .uri(URL)
+                    .body(BodyInserters.fromValue(carsResponseDto))
+                    .retrieve()
+                    .bodyToMono(CarsResponseDto.class)
+                    .block();
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
         LogsBhut logsBhut = new LogsBhut();
         logsBhut.setDataHora(dateTime);
